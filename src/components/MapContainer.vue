@@ -58,25 +58,15 @@ const initMap = (longitude, latitude) => {
 map.value = new BMapGL.Map('map');
 
 const point = new BMapGL.Point(longitude, latitude);
-const marker = new BMapGL.Marker(point, { icon: null });
+const marker = new BMapGL.Marker(point);
 map.value.centerAndZoom(point, 14);
 map.value.enableScrollWheelZoom();
 map.value.addOverlay(marker);// 添加地图标注
 openInfosub(marker, point);
 
-// 添加缩放控件
-const navigationControl = new BMapGL.NavigationControl();
-map.value.addControl(navigationControl);
-
 // 添加比例尺控件
 const scaleControl = new BMapGL.ScaleControl();
 map.value.addControl(scaleControl);
-
-// 地图卫星切换
-const mapTypeControl = new BMapGL.MapTypeControl({ mapTypes: [BMAP_NORMAL_MAP, BMAP_SATELLITE_MAP] });
-map.value.addControl(mapTypeControl);
-
-
 
 // 点击标注监听事件
 marker.addEventListener('click', function (e) {
@@ -152,12 +142,12 @@ console.log(searchResults.value);
 
 const handleSelect = (item) => {//点击搜索的点位并地图跳转到该坐标
 console.log(item)
-searchResults.value = item.address
+searchResults.value = item.title
 const point = new BMapGL.Point(item.point.lng, item.point.lat);
 map.value.centerAndZoom(point, 14);
-// var marker = new BMapGL.Marker(point);  // 创建标注
-// map.value.addOverlay(marker);               // 将标注添加到地图中
-// marker.setAnimation(BMAP_ANIMATION_BOUNCE); //坐标跳动的动画
+var marker = new BMapGL.Marker(point);
+map.value.addOverlay(marker);             
+marker.setAnimation(BMAP_ANIMATION_BOUNCE); 
 }
 </script>
 <style scoped lang="scss">
@@ -194,6 +184,9 @@ height: 100%;
 :deep(.el-input) {
 width: 100%;
 height: 40px;
+border-radius: 200px;
+}
+:deep(.el-input__wrapper ){
 border-radius: 200px;
 }
 .inline-input{
