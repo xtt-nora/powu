@@ -39,5 +39,13 @@
 ])
   </script>
   <style lang="scss" scoped>
+:deep(.el-descriptions__cell) {
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+:deep(.el-descriptions__cell:hover) {
+  background-color: #f0f0f0;
+}
   </style>
   

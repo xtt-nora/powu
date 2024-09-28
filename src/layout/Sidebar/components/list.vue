@@ -45,5 +45,12 @@ const list = reactive([
 :deep(.el-descriptions__label){
   margin-left: 10px;
 }
+:deep(.el-descriptions__cell) {
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
 
+:deep(.el-descriptions__cell:hover) {
+  background-color: #f0f0f0;
+}
 </style>
