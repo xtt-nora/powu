@@ -17,18 +17,26 @@
         <span>足迹</span>
       </el-menu-item>
     </el-menu>
-    <div class="tool" v-show="isTool">
-      <List></List>
+    <Transition name="slide-fade">
+    <div class="w-310px h-400px bg-#fff" v-show="isTool">
+      <List v-show="activeMenu === '1'"></List>
+      <Map v-show="activeMenu === '2'"></Map>
+      <FooterPrint v-show="activeMenu === '3'"></FooterPrint>
     </div>
+  </Transition>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ref } from "vue";
 import List from "./components/list.vue";
+import Map from "./components/map.vue";
+import FooterPrint from "./components/footerPrint.vue";
 const isTool = ref(false);
 const lastIndex = ref<any>(null);
+const activeMenu = ref('')
 const handleSelect = (key: string, keyPath: string[]) => {
+   activeMenu.value = key
   if (lastIndex.value === key) {
     isTool.value = !isTool.value;
   } else {
@@ -50,13 +58,21 @@ const handleSelect = (key: string, keyPath: string[]) => {
   padding: 0 !important;
   justify-content: center;
 }
-.tool {
-  width: 310px;
-  height: 400px;
-  background-color: aqua;
-}
 .el-menu-item > span {
   display: inline-block;
   margin-left: 5px;
+}
+.slide-fade-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
 }
 </style>

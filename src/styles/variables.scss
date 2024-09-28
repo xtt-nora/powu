@@ -56,17 +56,3 @@ $sidebar-width: 210px; // 侧边栏宽度
 $sidebar-width-collapsed: 54px; // 侧边栏收缩宽度
 $navbar-height: 50px; // 导航栏高度
 $tags-view-height: 34px; // TagsView 高度
-// $margins: 5px, 10px, 15px, 20px;
-// $direction: (
-//   "t": "top",
-//   "r": "right",
-//   "b": "bottom",
-//   "l": "left",
-// );
-// @each $margin in $margins {
-//   @each $key, $value in $direction {
-//     .m#{$key}-#{$margin} {
-//       margin-#{$value}: #{$margin};
-//     }
-//   }
-// }
