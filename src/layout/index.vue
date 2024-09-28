@@ -1,9 +1,9 @@
 <template>
   <div class="w-full h-full">
-    <Sidebar class="position-fixed top-10 bottom-10 left-10px z-999 w-80px bg-#E9E4F0" />
-    <!-- <div class="position-relative h-full ml-40"> -->
+    <Sidebar
+      class="position-fixed top-10 bottom-10 left-10px z-999 w-390px flex justify-start flex-row flex-items-center"
+    />
     <NavBar class="position-fixed top-10 z-999 left-90px w-[calc(100%-90px)]" />
-    <!-- </div> -->
     <AppMain class="w-full h-full" />
   </div>
 </template>
