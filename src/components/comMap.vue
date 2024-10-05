@@ -39,6 +39,8 @@ const initMap = (longitude: number, latitude: number) => {
 };
 defineExpose({
   map,
+  marker,
+  point
 });
 </script>
 <style scoped lang="scss">

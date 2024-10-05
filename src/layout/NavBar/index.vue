@@ -41,11 +41,12 @@
   </div>
 </template>
 <script setup lang="ts">
+import { ElMessage } from "element-plus";
 import { ref } from "vue";
-const emitEvents = defineEmits(["searchLocation"]);
+const emit = defineEmits(["locationSelected"]);
 const searchResults = ref([]);
 const searchLocation = async (str, cb) => {
-  const local = new BMapGL.LocalSearch(map.value, {
+  const local = new BMapGL.LocalSearch("北京市", {
     onSearchComplete: function (res) {
       var arr = [];
       if (local.getStatus() == BMAP_STATUS_SUCCESS) {
@@ -53,6 +54,7 @@ const searchLocation = async (str, cb) => {
           arr.push(res.getPoi(i));
         }
         cb(arr);
+        console.log(arr)
       } else {
         ElMessage.error("未找到相关地点，请尝试其他关键字。");
       }
@@ -62,42 +64,8 @@ const searchLocation = async (str, cb) => {
 };
 const handleSelect = (item) => {
   searchResults.value = item.title;
-  point.value = new BMapGL.Point(item.point.lng, item.point.lat);
-  map.value.centerAndZoom(point.value, 14);
-  if (marker.value) {
-    marker.value.setPosition(point.value); // 更新位置
-  } else {
-    marker.value = new BMapGL.Marker(point.value);
-    map.value.addOverlay(marker.value);
-  }
-  marker.value.setAnimation(BMAP_ANIMATION_BOUNCE);
-  marker.value.addEventListener("click", function (e: any) {
-    var opts = {
-      width: 300,
-      height: 70,
-      title: item.title, // 使用选中项的标题
-      message: item.address || "地址信息未提供", // 使用选中项的地址
-    };
-    var sContent = `<h4 style='margin:0 0 5px 0;'>${item.title}</h4>
-      <p style='margin:0;line-height:1.5;font-size:13px;text-indent:2em'>
-      地址：${item.address}
-      </p></div> 
-      <div><button id="saveBtn" style='margin-top: 10px;display: flex;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      justify-content: flex-end;
-      align-items: center;cursor:pointer'>收藏</button></div>`;
-    var infoWindow = new BMapGL.InfoWindow(sContent); // 创建信息窗口对象
-    map.value.openInfoWindow(infoWindow, point.value);
-    infoWindow.addEventListener("open", () => {
-      document.getElementById("saveBtn")?.addEventListener("click", function () {
-        save();
-      });
-    });
-  });
-};
-const save = () => {
-  console.log("保存成功！");
+  console.log(searchResults.value )
+  emit("locationSelected", item)
 };
 </script>
 <style lang="scss" scoped>
