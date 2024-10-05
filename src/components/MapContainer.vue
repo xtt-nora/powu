@@ -44,7 +44,7 @@ onMounted(() => {
       </p>
       <div style='display: flex;flex-direction: row;flex-wrap: nowrap;justify-content: space-around;'>
         <button id="saveBtn" style='cursor:pointer'>
-          候选
+          分享
         </button>
         <button id="saveBtn" style='cursor:pointer'>
           收藏

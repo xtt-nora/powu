@@ -27,6 +27,9 @@ const mapStyle = computed(() => {
 onMounted(() => {
   initMap(113.456941, 23.161843);
 });
+onUnmounted(() => {
+  map.value?.destroy();
+})
 
 const initMap = (longitude: number, latitude: number) => {
   map.value = new BMapGL.Map("map");

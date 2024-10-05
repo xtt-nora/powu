@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div ref="container" >
     <!-- 列表/ 地图/足迹 -->
-    <el-menu class="el-menu-vertical-demo" @select="handleSelect">
+    <el-menu ref="menu"  class="el-menu-vertical-demo" @select="handleSelect">
       <el-menu-item index="1">
         <template #title>
           <svg-icon icon-class="list" size="18" />
@@ -35,6 +35,8 @@ import FooterPrint from "./components/footerPrint.vue";
 const isTool = ref(false);
 const lastIndex = ref<any>(null);
 const activeMenu = ref('')
+const menu = ref<HTMLElement | null>(null);
+const container = ref<HTMLElement | null>(null);
 const handleSelect = (key: string, keyPath: string[]) => {
    activeMenu.value = key
   if (lastIndex.value === key) {
@@ -44,6 +46,24 @@ const handleSelect = (key: string, keyPath: string[]) => {
   }
   lastIndex.value = key;
 };
+const handleClickOutside = (event: MouseEvent) => {
+  const target = event.target as Node;
+  if (
+    isTool.value &&
+    container.value &&
+    !container.value.contains(target)
+  ) {
+    isTool.value = false;
+  }
+};
+
+onMounted(() => {
+  document.addEventListener("click", handleClickOutside);
+});
+
+onUnmounted(() => {
+  document.removeEventListener("click", handleClickOutside);
+});
 </script>
 
 <style>
