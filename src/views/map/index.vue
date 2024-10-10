@@ -5,24 +5,18 @@
         <div>
           <router-link :to="{ name: '/' }"><svg-icon icon-class="Traveling" size="40" /> </router-link>
         </div>
-        <div><el-button size="large" round text @click="isCreateMap(false)">全部</el-button></div>
-        <div><el-button size="large" round color="#000000" @click="isCreateMap(true)">创建</el-button></div>
+        <div><el-button size="large" round text >全部</el-button></div>
+        <div><el-button size="large" round color="#000000">创建</el-button></div>
       </div>
       <User />
     </div>
     <el-divider />
-    <CreatMap v-if="isCreate" />
-    <MapCard v-else />
+    <OpenMap :center="[116.397428, 39.90923]" :zoom="10"/>
   </div>
 </template>
 <script setup lang="ts">
 import User from "@/components/comUser/index.vue";
-import MapCard from "./components/mapCard.vue";
-import CreatMap from "./components/createMap.vue";
-const isCreate = ref(false);
-const isCreateMap = (value: boolean) => {
-  isCreate.value = value;
-};
+import OpenMap from "./components/openMap.vue";
 </script>
 <style lang="scss" scoped>
 .el-button.is-text:not(.is-disabled):hover {
