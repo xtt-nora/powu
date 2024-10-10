@@ -5,7 +5,21 @@
         <svg-icon :icon-class="item.icon" size="18" /><span class="font-size-12px">{{ item.title }}</span>
       </div>
     </div>
-    <div class="h-[calc(100%-40px)]">luxian</div>
+    <div class="w-full h-[calc(100%-40px)] overflow-auto flex flex-col flex-nowrap flex-items-center">
+      <el-card style="width: 250px">
+        <div class="card-header">
+          <div v-if="!isEdit" @click="editName">
+            <svg-icon icon-class="edit" size="18" />
+            <span class="font-size-12px">{{ routeName }}</span>
+          </div>
+          <div class="card-header" v-else>
+            <el-input autofocus v-model="routeName" size="small" @input="saveName" />
+          </div>
+        </div>
+
+        <p v-for="o in 10" :key="o" class="text item">{{ "List item " + o }}</p>
+      </el-card>
+    </div>
   </div>
 </template>
 <script setup lang="ts">
@@ -19,4 +33,15 @@ const list = reactive([
     title: "保存数据",
   },
 ]);
+const isEdit = ref(false);
+const routeName = ref<string>("未知路线");
+const editName = () => {
+  isEdit.value = !isEdit.value;
+};
+const saveName = (value: string) => {
+  console.log(value, "saveName");
+  if (value.trim() !== "") {
+    routeName.value = value;
+  }
+};
 </script>
