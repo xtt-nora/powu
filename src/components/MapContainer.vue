@@ -1,26 +1,32 @@
 <template>
   <div class="w-full h-full">
-    <NavBar class="position-fixed top-10 z-999 left-90px w-[calc(100%-90px)]" @locationSelected="handleLocationSelected"  />
+    <div class="position-fixed top-10 z-999 left-90px w-[calc(100%-90px)]">
+      <div class="h-50px p-5px pr-15px flex justify-between w-full">
+        <Search @locationSelected="handleLocationSelected" class="w-30%" />
+        <User />
+      </div>
+    </div>
     <ComMap ref="mapRef" />
   </div>
 </template>
 <script lang="ts" setup>
-import NavBar from "@/layout/NavBar/index.vue";
 import ComMap from "./comMap.vue";
+import Search from "@/layout/NavBar/components/search/index.vue";
+import User from "@/layout/NavBar/components/user/index.vue";
 const mapRef = ref();
 onMounted(() => {
-  init()
+  init();
 });
- const init = async ()=>{
+const init = async () => {
   await nextTick();
-  if(mapRef.value && mapRef.value.map) {
+  if (mapRef.value && mapRef.value.map) {
     const scaleControl = new BMapGL.ScaleControl();
     mapRef.value.map.addControl(scaleControl);
   } else {
     console.error("Map instance is not available.");
   }
- }
- const handleLocationSelected = (item) => {
+};
+const handleLocationSelected = (item) => {
   if (mapRef.value?.map) {
     const mapInstance = mapRef.value.map;
     const point = new BMapGL.Point(item.point.lng, item.point.lat);
@@ -28,7 +34,6 @@ onMounted(() => {
     if (mapRef.value.marker) {
       mapRef.value.marker.setPosition(point);
     } else {
-
       const marker = new BMapGL.Marker(point);
       mapInstance.addOverlay(marker);
       mapRef.value.marker = marker;
@@ -53,11 +58,11 @@ onMounted(() => {
       </div>
     `;
     var opts = {
-	    width : 350,  
-	    height: 100,
-	    title : item.title
-	}
-    const infoWindow = new BMapGL.InfoWindow(sContent,opts);
+      width: 350,
+      height: 100,
+      title: item.title,
+    };
+    const infoWindow = new BMapGL.InfoWindow(sContent, opts);
     marker.addEventListener("click", () => {
       mapInstance.openInfoWindow(infoWindow, point);
       // 添加按钮点击事件
@@ -75,7 +80,5 @@ onMounted(() => {
 const save = () => {
   console.log("保存成功！");
 };
-
 </script>
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>

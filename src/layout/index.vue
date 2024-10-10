@@ -3,14 +3,12 @@
     <Sidebar
       class="position-fixed top-10 bottom-10 left-10px z-999 w-390px flex justify-start flex-row flex-items-center"
     />
-    <NavBar class="position-fixed top-10 z-999 left-90px w-[calc(100%-90px)]" />
     <AppMain class="w-full h-full" />
   </div>
 </template>
 
 <script setup lang="ts">
 import Sidebar from "./Sidebar/index.vue";
-import NavBar from "./NavBar/index.vue";
 import AppMain from "./AppMain/index.vue";
 </script>
 

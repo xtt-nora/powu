@@ -1,6 +1,3 @@
-import { DataInfo, userKey, removeToken } from "@/utils/auth";
-import NProgress from "@/utils/progress";
-import { storageLocal } from "@pureadmin/utils";
 import type { App } from "vue";
 import { createRouter, createWebHashHistory, Router, RouteRecordRaw } from "vue-router";
 export const Layout = () => import("@/layout/index.vue");
@@ -41,6 +38,12 @@ export const constantRoutes: RouteRecordRaw[] = [
         },
       },
     ],
+  },
+  {
+    path: "/map",
+    name: "Map",
+    component: () => import("@/views/map/index.vue"),
+    meta: { hidden: true },
   },
 ];
 /**

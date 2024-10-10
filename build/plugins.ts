@@ -64,7 +64,7 @@ export const createVitePlugins = (viteEnv: ViteEnv): (PluginOption | PluginOptio
     }),
     createSvgIconsPlugin({
       // 指定需要缓存的图标文件夹
-      iconDirs: [resolve(pathSrc, "assets/icons")],
+      iconDirs: [resolve(pathSrc, "src/assets/icons")],
       // 指定symbolId格式
       symbolId: "icon-[dir]-[name]",
     }),
