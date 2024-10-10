@@ -17,7 +17,13 @@
           </div>
           <svg-icon icon-class="morey" size="18" class="cursor-pointer" />
         </div>
-        <div v-for="o in 3" :key="o" class="font-size-12px pb-5px mx-20px bg-amber mb-1px">{{ "List item " + o }}</div>
+        <div
+          v-for="o in 3"
+          :key="o"
+          class="font-size-12px h-20px line-height-20px pb-5px mx-20px hover:bg-[#F1F1F1] focus-visible:bg-[#F1F1F1] mb-1px"
+        >
+          {{ "List item " + o }}
+        </div>
         <el-divider />
       </div>
     </div>
