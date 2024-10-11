@@ -13,7 +13,7 @@
             <span class="font-size-12px">{{ routeName }}</span>
           </div>
           <div class="card-header" v-else>
-            <el-input ref="inputRef" autofocus v-model="routeName" size="small" @change="saveName" @blur="cancelName" />
+            <el-input autofocus v-model="routeName" ref="inputRef" size="small" @input="saveName" @blur="cancelName" />
           </div>
           <svg-icon icon-class="morey" size="18" class="cursor-pointer" />
         </div>
@@ -30,6 +30,7 @@
   </div>
 </template>
 <script setup lang="ts">
+const inputRef = ref(null);
 const list = reactive([
   {
     icon: "routePoint",
@@ -40,7 +41,6 @@ const list = reactive([
     title: "保存数据",
   },
 ]);
-const inputRef = ref(null);
 const isEdit = ref(false);
 const routeName = ref<string>("未知路线");
 const editName = () => {
@@ -57,7 +57,7 @@ const saveName = (value: string) => {
   isEdit.value = false;
 };
 const cancelName = () => {
-  isEdit.value = false;
+  isEdit.value = false; // 取消编辑模式
 };
 </script>
 <style lang="scss" scoped>
