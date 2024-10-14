@@ -4,18 +4,14 @@
       <RoutePlan />
     </div>
     <div class="w-[calc(100%-271px)] position-relative">
-      <div class="position-absolute top-10px left-10px z-9999 w-30%">
-        <Search @locationSelected="handleLocationSelected" />
-      </div>
-      <ComMap ref="mapRef" />
+      <OpenMap ref="mapRef" />
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import ComMap from "@/components/comMap.vue";
+import OpenMap from "@/components/Map/openMap.vue";
 import RoutePlan from "./routePlan.vue";
 const mapRef = ref();
-import Search from "@/components/comSearch/index.vue";
 onMounted(() => {});
 const handleLocationSelected = () => {};
 </script>
