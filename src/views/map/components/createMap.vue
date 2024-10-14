@@ -80,9 +80,11 @@ const handleLocationSelected = (item: { point: { lng: any; lat: any }; address: 
         save();
       });
       document.getElementById("addBtn")?.addEventListener("click", () => {
-        mapData.value = item;
+        // mapData.value = item;
+        mapData.value = { ...item, timestamp: Date.now() };
       });
     });
+    infoWindow.addEventListener("clickclose", () => {});
   } else {
     console.error("Map instance is not available.");
   }
