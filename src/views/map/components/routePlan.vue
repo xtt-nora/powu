@@ -9,9 +9,14 @@
       <div
         v-for="item in routeList"
         @click="selectItem(item)"
-        :class="['w-250px border-b border-solid b-b-blueGray', { selectB: item.isSelected }]"
+        class="w-250px border-b border-solid b-b-blueGray mb-10px"
       >
-        <div class="card-header flex flex-row flex-nowrap justify-between cursor-pointer mb-10px">
+        <div
+          :class="[
+            'card-header flex flex-row flex-nowrap justify-between cursor-pointer mb-10px',
+            { selectB: item.isSelected },
+          ]"
+        >
           <div v-if="!item.isEdit" @click="editName(item)" class="overflow-hidden whitespace-nowrap text-ellipsis">
             <svg-icon icon-class="edit" size="18" />
             <span class="font-size-12px">{{ item.routeName }}</span>
@@ -26,7 +31,16 @@
               @blur="cancelName(item)"
             />
           </div>
-          <svg-icon icon-class="delete" size="18" class="cursor-pointer" @click="del(item)" />
+          <el-dropdown placement="bottom" @command="(command) => handleCommand(command, item)">
+            <span> <svg-icon icon-class="morey" size="18" class="cursor-pointer" /></span>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item command="create">形成路线</el-dropdown-item>
+                <el-dropdown-item command="del">删除路线</el-dropdown-item>
+                <!-- <el-dropdown-item>The Action 3st</el-dropdown-item> -->
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
         </div>
         <div
           v-for="o in item.routerGroup"
@@ -46,9 +60,11 @@ const props = defineProps({
 watch(
   () => props.item,
   (newVal) => {
+    console.log(newVal, "new");
     routeList.value.forEach((item) => {
       if (item.isSelected) {
-        newVal && item.routerGroup.push({ name: newVal.title, order: item.routerGroup.length + 1 });
+        newVal &&
+          item.routerGroup.push({ name: newVal.title, point: newVal.point, order: item.routerGroup.length + 1 });
       }
     });
   },
@@ -56,7 +72,7 @@ watch(
     deep: true,
   }
 );
-const inputRef = ref(null);
+const inputRef = ref<any>(null);
 const id = ref(0);
 const list = reactive([
   {
@@ -77,18 +93,22 @@ const routeList = ref([
     routerGroup: [
       {
         name: "TravelNote",
+        point: {},
         order: 1,
       },
       {
         name: "镰仓",
+        point: {},
         order: 2,
       },
       {
         name: "秋叶原",
+        point: {},
         order: 3,
       },
       {
         name: "银座",
+        point: {},
         order: 4,
       },
     ],
@@ -122,10 +142,15 @@ const clickEvent = (item: string) => {
 const save = () => {
   console.log("保存数据");
 };
+const handleCommand = (command: string, item: any) => {
+  command === "del" ? del(item) : create();
+};
 const del = (item: any) => {
   console.log("删除", item);
 };
-
+const create = () => {
+  console.log("创建成功");
+};
 const selectItem = (item: { isSelected: boolean }) => {
   // 取消其他项的选中状态
   routeList.value.forEach((route) => {
@@ -143,6 +168,6 @@ const selectItem = (item: { isSelected: boolean }) => {
   margin: 10px;
 }
 .selectB {
-  border-left: 1px solid seagreen;
+  border-left: 3px solid seagreen;
 }
 </style>

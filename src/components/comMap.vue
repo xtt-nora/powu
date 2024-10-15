@@ -29,7 +29,7 @@ onMounted(() => {
 });
 onUnmounted(() => {
   map.value?.destroy();
-})
+});
 
 const initMap = (longitude: number, latitude: number) => {
   map.value = new BMapGL.Map("map");
@@ -43,7 +43,7 @@ const initMap = (longitude: number, latitude: number) => {
 defineExpose({
   map,
   marker,
-  point
+  point,
 });
 </script>
 <style scoped lang="scss">

@@ -30,7 +30,7 @@
 import { ElMessage } from "element-plus";
 import { ref } from "vue";
 const emit = defineEmits(["locationSelected"]);
-const searchResults = ref([]);
+const searchResults = ref<any>([]);
 const searchLocation = async (str: any, cb: (arg0: any[]) => void) => {
   const local = new BMapGL.LocalSearch("北京市", {
     onSearchComplete: function (res: { getCurrentNumPois: () => number; getPoi: (arg0: number) => any }) {
@@ -48,7 +48,7 @@ const searchLocation = async (str: any, cb: (arg0: any[]) => void) => {
   });
   local.search(str);
 };
-const handleSelect = (item: { title: never[] }) => {
+const handleSelect = (item: any) => {
   searchResults.value = item.title;
   emit("locationSelected", item);
 };
