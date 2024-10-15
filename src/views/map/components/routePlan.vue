@@ -31,21 +31,23 @@
               @blur="cancelName(item)"
             />
           </div>
-          <el-dropdown placement="bottom" @command="(command) => handleCommand(command, item)">
-            <span> <svg-icon icon-class="morey" size="18" class="cursor-pointer" /></span>
-            <template #dropdown>
-              <el-dropdown-menu>
-                <el-dropdown-item command="create">形成路线</el-dropdown-item>
-                <el-dropdown-item command="del">删除路线</el-dropdown-item>
-                <!-- <el-dropdown-item>The Action 3st</el-dropdown-item> -->
-              </el-dropdown-menu>
-            </template>
-          </el-dropdown>
+          <div>
+            <el-color-picker v-model="item.routerColor" size="small" @change="(color) => handleColor(color, item)" />
+            <el-dropdown placement="bottom" @command="(command) => handleCommand(command, item)">
+              <span> <svg-icon icon-class="morey" size="18" class="cursor-pointer" /></span>
+              <template #dropdown>
+                <el-dropdown-menu>
+                  <el-dropdown-item command="create">形成路线</el-dropdown-item>
+                  <el-dropdown-item command="del">删除路线</el-dropdown-item>
+                </el-dropdown-menu>
+              </template>
+            </el-dropdown>
+          </div>
         </div>
         <div
           v-for="o in item.routerGroup"
           :key="o.order"
-          class="font-size-12px h-20px line-height-20px pb-5px mx-20px hover:bg-[#F1F1F1] focus-visible:bg-[#F1F1F1] mb-1px"
+          class="font-size-12px h-20px line-height-20px pb-5px mx-20px hover:bg-[#F1F1F1] focus-visible:bg-[#F1F1F1] mb-1px overflow-hidden whitespace-nowrap text-ellipsis"
         >
           {{ o.name }}
         </div>
@@ -57,6 +59,7 @@
 const props = defineProps({
   item: Object,
 });
+const emit = defineEmits(["createRoute"]);
 watch(
   () => props.item,
   (newVal) => {
@@ -90,6 +93,7 @@ const routeList = ref([
     id: 0,
     isEdit: false,
     isSelected: true,
+    routerColor: "409EFF",
     routerGroup: [
       {
         name: "TravelNote",
@@ -135,6 +139,7 @@ const clickEvent = (item: string) => {
         id: id.value++,
         isEdit: false,
         isSelected: false,
+        routerColor: "409EFF",
         routerGroup: [],
       });
 };
@@ -143,13 +148,17 @@ const save = () => {
   console.log("保存数据");
 };
 const handleCommand = (command: string, item: any) => {
-  command === "del" ? del(item) : create();
+  command === "del" ? del(item) : create(item);
+};
+const handleColor = (color: string | null, item: any) => {
+  console.log(color, item);
 };
 const del = (item: any) => {
   console.log("删除", item);
 };
-const create = () => {
-  console.log("创建成功");
+const create = (item: any) => {
+  console.log("创建成功", item);
+  emit("createRoute", item);
 };
 const selectItem = (item: { isSelected: boolean }) => {
   // 取消其他项的选中状态

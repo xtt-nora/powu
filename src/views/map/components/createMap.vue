@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-row w-full h-full">
     <div class="w-270px h-full">
-      <RoutePlan :item="mapData" />
+      <RoutePlan :item="mapData" @createRoute="createRoute" />
     </div>
     <div class="w-[calc(100%-271px)] position-relative">
       <div class="position-absolute top-10px left-10px z-9999 w-30%">
@@ -53,10 +53,57 @@ const handleLocationSelected = (item: { point: { lng: any; lat: any }; address: 
       mapInstance.openInfoWindow(infoWindow, point);
     });
     const infoWindow = useCreateWindow(item, "route", mapData);
-    infoWindow.redraw();
   } else {
     console.error("Map instance is not available.");
   }
+};
+const createRoute = (value: any) => {
+  //测试
+  let lineLayer = new BMapGL.LineLayer({
+    enablePicked: true,
+    pickWidth: 30,
+    pickHeight: 30,
+    opacity: 1,
+    selectedColor: "red", // 选中项颜色
+    minZoom: 4,
+    nodeShow: true,
+    nodeMask: true,
+    linkLine: true,
+    nodeStrict: true,
+    nodeMinZoom: 4,
+    nodeMiddleShow: true,
+    nodeBreakpoint: true,
+    style: {
+      strokeColor: ["case", ["boolean", ["feature-state", "picked"], false], "#6704ff", value.routerColor],
+      strokeWeight: 3,
+      borderColor: "rgba(0,0,0,0)",
+      borderWeight: 1,
+      shapeType: 1,
+      color: "blue",
+      size: 10,
+    },
+  });
+  console.log(lineLayer, value, "value");
+  const lineData = {
+    type: "FeatureCollection",
+    features: [
+      {
+        type: "Feature",
+        properties: {
+          name: value.routeName,
+        },
+        geometry: {
+          type: "LineString",
+          coordinates: value.routerGroup.map((item: { point: { lng: any; lat: any } }) => {
+            return [item.point.lng, item.point.lat];
+          }),
+        },
+      },
+    ],
+  };
+  console.log(lineData, "lineData");
+  mapRef.value.map.addNormalLayer(lineLayer);
+  lineLayer.setData(lineData);
 };
 </script>
 <style lang="scss" scoped>
