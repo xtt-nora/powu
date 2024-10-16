@@ -36,6 +36,7 @@ const init = async () => {
 const handleLocationSelected = (item: { point: { lng: any; lat: any }; address: any; title: any }) => {
   if (mapRef.value?.map) {
     const mapInstance = mapRef.value.map;
+    mapInstance.closeInfoWindow();
     const point = new BMapGL.Point(item.point.lng, item.point.lat);
     mapInstance.centerAndZoom(point, 14);
     if (mapRef.value.marker) {
@@ -83,7 +84,6 @@ const createRoute = (value: any) => {
       size: 10,
     },
   });
-  console.log(lineLayer, value, "value");
   const lineData = {
     type: "FeatureCollection",
     features: [
@@ -101,6 +101,25 @@ const createRoute = (value: any) => {
       },
     ],
   };
+  value.routerGroup.forEach((item: { point: { lng: any; lat: any }; order: any }) => {
+    let point = new BMapGL.Point(item.point.lng, item.point.lat);
+    let myIcon = new BMapGL.Icon(
+      `https://img.icons8.com/?size=100&id=OBmVbH2qOGwK&format=png&color=${value.routerColor.replace("#", "")}`,
+      new BMapGL.Size(50, 50)
+    );
+    console.log(myIcon, "icon");
+    let marker = new BMapGL.Marker(point, { icon: myIcon });
+    let label = new BMapGL.Label(item.order, {
+      position: new BMapGL.Point(item.point.lng, item.point.lat),
+      offset: new BMapGL.Size(-5, -25),
+    });
+    label.setStyle({
+      backgroundColor: "transparent",
+      border: "none",
+    });
+    marker.setLabel(label);
+    mapRef.value.map.addOverlay(marker);
+  });
   console.log(lineData, "lineData");
   mapRef.value.map.addNormalLayer(lineLayer);
   lineLayer.setData(lineData);

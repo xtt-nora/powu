@@ -39,3 +39,32 @@ export function isExternal(path: string) {
   const isExternal = /^(https?:|http?:|mailto:|tel:)/.test(path);
   return isExternal;
 }
+
+/**
+ * 图片改变颜色
+ */
+export function changeMarkerColor(
+  imageUrl: string,
+  color: string | CanvasGradient | CanvasPattern,
+  callback: (arg0: string) => void
+) {
+  const img = new Image();
+  img.src = imageUrl;
+  img.onload = function () {
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = img.width;
+    canvas.height = img.height;
+
+    // 绘制图标图片到canvas
+    ctx?.drawImage(img, 0, 0);
+
+    // 设置全局组合操作为source-atop来改变图标颜色
+    ctx.globalCompositeOperation = "source-atop";
+    ctx.fillStyle = color;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // 将canvas内容转为图片URL
+    const newIconUrl = canvas.toDataURL();
+    callback(newIconUrl);
+  };
+}
