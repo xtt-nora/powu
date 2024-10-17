@@ -110,12 +110,13 @@ const createRoute = (value: any) => {
     let marker = new BMapGL.Marker(point, { icon: myIcon });
     let label = new BMapGL.Label(item.order, {
       position: new BMapGL.Point(item.point.lng, item.point.lat),
-      offset: new BMapGL.Size(-10, -25),
+      offset: new BMapGL.Size(-3, -20),
     });
     label.setStyle({
       backgroundColor: "transparent",
       border: "none",
       fontSize: "14px",
+      color: "white",
     });
     marker.setLabel(label);
     mapRef.value.map.addOverlay(marker);

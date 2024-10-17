@@ -44,18 +44,21 @@
             </el-dropdown>
           </div>
         </div>
-        <div
-          v-for="o in item.routerGroup"
-          :key="o.order"
-          class="font-size-12px h-20px line-height-20px pb-5px mx-20px hover:bg-[#F1F1F1] focus-visible:bg-[#F1F1F1] mb-1px overflow-hidden whitespace-nowrap text-ellipsis"
-        >
-          {{ o.name }}
-        </div>
+        <VueDraggable ref="el" v-model="item.routerGroup">
+          <div
+            v-for="o in item.routerGroup"
+            :key="o.order"
+            class="font-size-12px h-20px line-height-20px pb-5px mx-20px hover:bg-[#F1F1F1] focus-visible:bg-[#F1F1F1] mb-1px overflow-hidden whitespace-nowrap text-ellipsis"
+          >
+            {{ o.name }}
+          </div>
+        </VueDraggable>
       </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
+import { VueDraggable } from "vue-draggable-plus";
 const props = defineProps({
   item: Object,
 });
@@ -87,6 +90,7 @@ const list = reactive([
     title: "保存数据",
   },
 ]);
+
 const routeList = ref([
   {
     routeName: "未知路线",
@@ -153,13 +157,25 @@ const handleCommand = (command: string, item: any) => {
 const handleColor = (color: string | null, item: any) => {
   console.log(color, item);
 };
+/**
+ * 删除路线
+ * @param item 路线
+ */
 const del = (item: any) => {
-  console.log("删除", item);
+  const index = routeList.value.indexOf(item);
+  index > -1 && routeList.value.splice(index, 1);
 };
+/**
+ *  创建路线
+ * @param item 路线
+ */
 const create = (item: any) => {
-  console.log("创建成功", item);
   emit("createRoute", item);
 };
+/**
+ * 选中路线
+ * @param item 选中状态
+ */
 const selectItem = (item: { isSelected: boolean }) => {
   // 取消其他项的选中状态
   routeList.value.forEach((route) => {
