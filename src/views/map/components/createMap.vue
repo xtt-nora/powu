@@ -15,7 +15,7 @@
 <script setup lang="ts">
 import Search from "@/components/comSearch/index.vue";
 // import OpenMap from "@/components/Map/openMap.vue";
-import ComMap from "@/components/comMap.vue";
+import ComMap from "@/components/Map/comMap.vue";
 import RoutePlan from "./routePlan.vue";
 import { useCreateWindow } from "@/utils/composables/handleSelected";
 const mapRef = ref();
@@ -59,7 +59,6 @@ const handleLocationSelected = (item: { point: { lng: any; lat: any }; address: 
   }
 };
 const createRoute = (value: any) => {
-  //测试
   let lineLayer = new BMapGL.LineLayer({
     enablePicked: true,
     pickWidth: 30,

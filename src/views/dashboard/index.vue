@@ -10,7 +10,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import ComMap from "@/components/comMap.vue";
+import ComMap from "@/components/Map/comMap.vue";
 import Search from "@/components/comSearch/index.vue";
 import User from "@/components/comUser/index.vue";
 import { useCreateWindow } from "@/utils/composables/handleSelected";

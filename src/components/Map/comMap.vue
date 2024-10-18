@@ -33,10 +33,9 @@ onUnmounted(() => {
 
 const initMap = (longitude: number, latitude: number) => {
   map.value = new BMapGL.Map("map");
-  console.log(map.value);
   point.value = new BMapGL.Point(longitude, latitude);
   marker.value = new BMapGL.Marker(point.value);
-  map.value.centerAndZoom(point.value, 14);
+  map.value.centerAndZoom(point.value, 6);
   map.value.enableScrollWheelZoom();
   map.value.addOverlay(marker.value); // 添加地图标注
 };
