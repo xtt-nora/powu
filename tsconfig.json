@@ -28,7 +28,7 @@
     "src/**/*.ts",
     "src/**/*.vue",
     "vite.config.ts",
-    "src/utils/composables/handleSelected.tsx"
+    "src/hooks/composables/handleSelected.tsx"
   ],
   "exclude": ["node_modules", "dist", "**/*.js"]
 }

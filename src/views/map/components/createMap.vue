@@ -8,16 +8,14 @@
         <Search @locationSelected="handleLocationSelected" />
       </div>
       <ComMap ref="mapRef" />
-      <!-- <OpenMap :center="[116.397428, 39.90923]" :zoom="10" ref="mapRef" /> -->
     </div>
   </div>
 </template>
 <script setup lang="ts">
 import Search from "@/components/comSearch/index.vue";
-// import OpenMap from "@/components/Map/openMap.vue";
 import ComMap from "@/components/Map/comMap.vue";
 import RoutePlan from "./routePlan.vue";
-import { useCreateWindow } from "@/utils/composables/handleSelected";
+import { useCreateWindow } from "@/hooks/composables/handleSelected";
 const mapRef = ref();
 onMounted(() => {
   init();

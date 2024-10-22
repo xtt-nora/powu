@@ -13,7 +13,7 @@
 import ComMap from "@/components/Map/comMap.vue";
 import Search from "@/components/comSearch/index.vue";
 import User from "@/components/comUser/index.vue";
-import { useCreateWindow } from "@/utils/composables/handleSelected";
+import { useCreateWindow } from "@/hooks/composables/handleSelected";
 const mapRef = ref();
 onMounted(() => {
   init();
