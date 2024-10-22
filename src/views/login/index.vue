@@ -14,8 +14,8 @@
         <el-form-item label="Name" prop="name">
           <el-input v-model.number="ruleForm.name" />
         </el-form-item>
-        <el-form-item label="Password" prop="pass">
-          <el-input v-model="ruleForm.pass" type="password" autocomplete="off" />
+        <el-form-item label="Password" prop="password">
+          <el-input v-model="ruleForm.password" type="password" autocomplete="off" />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm(ruleFormRef)"> Submit </el-button>
@@ -32,12 +32,12 @@ import type { FormInstance, FormRules } from "element-plus";
 
 const ruleFormRef = ref<FormInstance>();
 const ruleForm = reactive({
-  pass: "",
+  password: "",
   name: "",
 });
 
 const rules = reactive<FormRules<typeof ruleForm>>({
-  pass: [{ trigger: "blur" }],
+  password: [{ trigger: "blur" }],
   name: [{ trigger: "blur" }],
 });
 
