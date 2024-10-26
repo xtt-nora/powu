@@ -1,3 +1,6 @@
+import { LOGIN_URL } from "@/config";
+import NProgress from "@/config/nprogress";
+import { useUserStore } from "@/store/modules/user";
 import type { App } from "vue";
 import { createRouter, createWebHashHistory, Router, RouteRecordRaw } from "vue-router";
 export const Layout = () => import("@/layout/index.vue");
@@ -60,27 +63,17 @@ const router = createRouter({
 export function setupRouter(app: App<Element>) {
   app.use(router);
 }
-// const whiteList = ["/login"];
-// router.beforeEach((to, _from, next) => {
-//   if (to.meta?.keepAlive) {
-//   }
-//   const userInfo = storageLocal().getItem<DataInfo<number>>(userKey);
-//   NProgress.start();
-//   if (to.path !== "/login") {
-//     if (whiteList.indexOf(to.path) !== -1) {
-//       next();
-//     } else {
-//       removeToken();
-//       next({ path: "/login" });
-//     }
-//   } else {
-//     next();
-//   }
-// });
-
-// router.afterEach(() => {
-//   NProgress.done();
-// });
+const whiteList = ["/login"];
+router.beforeEach((to, from, next) => {
+  const userStore = useUserStore();
+  NProgress.start();
+  if (whiteList.includes(to.path)) return next();
+  if (to.path !== "/login" && !userStore.token) return next({ path: LOGIN_URL, replace: true });
+  next();
+});
+router.afterEach(() => {
+  NProgress.done();
+});
 /**
  * 重置路由
  */

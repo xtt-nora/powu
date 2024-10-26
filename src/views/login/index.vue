@@ -53,7 +53,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
     try {
       // 1.执行登录接口
       const { data } = await loginApi({ ...loginForm });
-      userStore.setToken(data.access_token);
+      userStore.setToken(data.token);
       // 4.跳转到首页
       router.push(HOME_URL);
     } finally {

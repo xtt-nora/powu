@@ -59,28 +59,7 @@ export function setToken(data: DataInfo<Date>) {
   Cookies.set(multipleTabsKey, "true");
   if (data.username && data.roles) {
     const { username, roles } = data;
-    setUserKey({
-      avatar: data?.avatar ?? "",
-      username,
-      nickname: data?.nickname ?? "",
-      roles,
-      permissions: data?.permissions ?? [],
-    });
-  } else {
-    const avatar = storageLocal().getItem<DataInfo<number>>(userKey)?.avatar ?? "";
-    const username = storageLocal().getItem<DataInfo<number>>(userKey)?.username ?? "";
-    const nickname = storageLocal().getItem<DataInfo<number>>(userKey)?.nickname ?? "";
-    const roles = storageLocal().getItem<DataInfo<number>>(userKey)?.roles ?? [];
-    const permissions = storageLocal().getItem<DataInfo<number>>(userKey)?.permissions ?? [];
-    setUserKey({
-      avatar,
-      username,
-      nickname,
-      roles,
-      permissions,
-    });
   }
-}
 
 /** 删除`token`以及key值为`user-info`的localStorage信息 */
 export function removeToken() {
