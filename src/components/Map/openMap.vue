@@ -2,7 +2,6 @@
   <div ref="mapElement" class="map-container"></div>
 </template>
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount, ref, PropType } from "vue";
 import "ol/ol.css";
 import { Map, View } from "ol";
 import TileLayer from "ol/layer/Tile";
@@ -68,6 +67,7 @@ const handleMapClick = (evt: any) => {
   if (!map) return;
   const feature = map.forEachFeatureAtPixel(evt.pixel, (feat) => feat);
   if (feature) {
+    // @ts-ignore
     const coordinates = feature.getGeometry()?.getCoordinates();
     if (coordinates) {
       const lonLat = toLonLat(coordinates);
@@ -82,6 +82,7 @@ onMounted(() => {
 });
 onBeforeUnmount(() => {
   if (map) {
+    // @ts-ignore
     map.setTarget(null);
     map = null;
   }

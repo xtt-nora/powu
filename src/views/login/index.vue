@@ -27,7 +27,6 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from "vue";
 import type { FormInstance, FormRules } from "element-plus";
 import { loginApi } from "@/api/modules/login";
 import { useUserStore } from "@/store/modules/user";
@@ -48,7 +47,7 @@ const rules = reactive<FormRules<typeof loginForm>>({
 
 const submitForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return;
-  formEl.validate(async (valid) => {
+  formEl.validate(async (valid: any) => {
     if (!valid) return;
     try {
       // 1.执行登录接口

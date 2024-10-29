@@ -28,10 +28,9 @@
 </template>
 <script setup lang="ts">
 import { ElMessage } from "element-plus";
-import { ref } from "vue";
 const emit = defineEmits(["locationSelected"]);
 const searchResults = ref<any>([]);
-const searchLocation = async (str: any, cb: (arg0: any[]) => void) => {
+const searchLocation: any = async (str: any, cb: (arg0: any[]) => void) => {
   const local = new BMapGL.LocalSearch("北京市", {
     onSearchComplete: function (res: { getCurrentNumPois: () => number; getPoi: (arg0: number) => any }) {
       var arr = [];
